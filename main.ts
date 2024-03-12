@@ -46,8 +46,9 @@ async function listAll(env, ...args) {
                         }
 
                         contactsCache.push({
-                            nome: c['name'],
-                            celular: num
+                            nome: c['name'].replaceAll(/[^[A-z][a-z ]/g, '').trim(),
+                            curto: c['name'].replaceAll(/[^[A-z][a-z ]/g, '').split(' ')[0].trim(),
+                            celular: num.trim()
                         });
                     });
                 }
@@ -92,11 +93,11 @@ const main = new directive("kcli", "Kommo CLI")
 
 //endregion
 
-await main.execute();
+// await main.execute();
 // await main.execute("link", "18321652", "19150014");
 // await main.execute("contact", "18321652");
 // await main.execute("listAll");
 
 // getUniqueListBy(contactsCache, "celular").forEach(c => {
-//     console.log(`"${c['nome'].trim()}"; "${c['celular'].trim()}"`);
+//     console.log(`"${c['curto'].trim()}";"${c['nome'].trim()}"; "${c['celular'].trim()}"`);
 // });
